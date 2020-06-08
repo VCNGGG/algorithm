@@ -1,0 +1,30 @@
+language: node_js
+
+addons:
+  sonarcloud:
+    organization: "yourtion-github"
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" = '12' && "$TRAVIS_BRANCH" = "master" ]]; then
+      npm run test:cov ; sonar-scanner;
+    fi
+  - npm run test
+
+services:
+  - redis-server
+
+cache:
+  directories:
+    - node_modules
+
+os:
+  # - windows
+  - linux
+
+node_js:
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
